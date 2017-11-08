@@ -1,5 +1,6 @@
 package com.kittyapp.rest.model;
 
+import java.time.ZonedDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SystemMessageContent
@@ -7,6 +8,7 @@ public class SystemMessageContent
     private String description;
     private String type;
     private String location;
+    private ZonedDateTime timestamp;
     private double cost;
     
     /**
@@ -28,36 +30,13 @@ public class SystemMessageContent
         this.cost = cost;
     }
 
+
     /**
      * @return the description
      */
     public String getDescription()
     {
         return this.description;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType()
-    {
-        return this.type;
-    }
-
-    /**
-     * @return the location
-     */
-    public String getLocation()
-    {
-        return this.location;
-    }
-
-    /**
-     * @return the cost
-     */
-    public double getCost()
-    {
-        return this.cost;
     }
 
     /**
@@ -68,6 +47,16 @@ public class SystemMessageContent
         this.description = description;
     }
 
+
+    /**
+     * @return the type
+     */
+    public String getType()
+    {
+        return this.type;
+    }
+
+
     /**
      * @param type the type to set
      */
@@ -75,6 +64,16 @@ public class SystemMessageContent
     {
         this.type = type;
     }
+
+
+    /**
+     * @return the location
+     */
+    public String getLocation()
+    {
+        return this.location;
+    }
+
 
     /**
      * @param location the location to set
@@ -84,6 +83,16 @@ public class SystemMessageContent
         this.location = location;
     }
 
+
+    /**
+     * @return the cost
+     */
+    public double getCost()
+    {
+        return this.cost;
+    }
+
+
     /**
      * @param cost the cost to set
      */
@@ -91,6 +100,7 @@ public class SystemMessageContent
     {
         this.cost = cost;
     }
+
 
     /**
      * {@inheritDoc}
