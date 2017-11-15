@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kittyapp.dataaccess.dao.TransactionDao;
 import com.kittyapp.dataaccess.entities.Transaction;
 import com.kittyapp.rest.model.SystemMessageContent;
+import com.kittyapp.rest.model.filter.TransactionFilter;
 
 @RestController
 @RequestMapping("/transactions")
@@ -24,11 +25,17 @@ public class TransactionController
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
     private final Clock clock = Clock.systemUTC();
-    
-    @Autowired private TransactionDao transactionDao;
 
-    @RequestMapping(
-        path = "/add",
+    @Autowired
+    private TransactionDao transactionDao;
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public int getTransactions(TransactionFilter filter)
+    {
+        return filter.getMonth();
+    }
+
+    @RequestMapping(path = "/add", 
         method = RequestMethod.POST, 
         consumes = MediaType.APPLICATION_JSON_VALUE, 
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,12 +43,12 @@ public class TransactionController
         @RequestBody @Valid SystemMessageContent newTransContent) throws Exception
     {
         LOGGER.info("New transaciton received. {}", newTransContent.toString());
-        Transaction newTransaction = new Transaction(newTransContent.getDescription(), 
-            newTransContent.getType(), newTransContent.getLocation(), newTransContent.getCost(), 
+        Transaction newTransaction = new Transaction(newTransContent.getDescription(),
+            newTransContent.getType(), newTransContent.getLocation(), newTransContent.getCost(),
             newTransContent.getTimestamp(), ZonedDateTime.now(this.clock));
-        
+
         transactionDao.addTransaction(newTransaction);
-        
+
         return new ResponseEntity<>(newTransaction, HttpStatus.OK);
     }
 }
