@@ -22,12 +22,14 @@ public class SystemMessageContent
         @JsonProperty("description") String description, 
         @JsonProperty("type") String type, 
         @JsonProperty("location") String location, 
-        @JsonProperty("cost") double cost)
+        @JsonProperty("cost") double cost,
+        @JsonProperty("timestamp") ZonedDateTime timestamp)
     {
         this.description = description;
         this.type = type;
         this.location = location;
         this.cost = cost;
+        this.timestamp = timestamp;
     }
 
 
@@ -101,15 +103,31 @@ public class SystemMessageContent
         this.cost = cost;
     }
 
+    /**
+     * @return the timestamp
+     */
+    public ZonedDateTime getTimestamp()
+    {
+        return this.timestamp;
+    }
+
 
     /**
-     * {@inheritDoc}
+     * @param timestamp the timestamp to set
+     */
+    public void setTimestamp(ZonedDateTime timestamp)
+    {
+        this.timestamp = timestamp;
+    }      
+    
+    /**
+     * @return
      */
     @Override
     public String toString()
     {
         return "SystemMessageContent [description="
-            + description + ", type=" + type + ", location=" + location + ", cost=" + cost + "]";
-    }      
-    
+            + description + ", type=" + type + ", location=" + location + ", timestamp=" + timestamp + ", cost=" + cost
+            + "]";
+    }
 }

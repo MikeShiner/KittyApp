@@ -1,0 +1,5 @@
+# MongoDB access
+spring.data.mongodb.host={host}
+spring.data.mongodb.database={db}
+spring.data.mongodb.username={dbUser}
+spring.data.mongodb.password={dbPass}
