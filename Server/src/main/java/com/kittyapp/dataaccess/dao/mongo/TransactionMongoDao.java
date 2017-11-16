@@ -1,5 +1,6 @@
 package com.kittyapp.dataaccess.dao.mongo;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
@@ -21,5 +22,15 @@ public class TransactionMongoDao implements TransactionDao
     {
         this.mongoOps.save(trans, Transaction.COLLECTION_NAME);
         return trans;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<Transaction> getAllTransaction()
+    {
+        List<Transaction> transactionList = this.mongoOps.findAll(Transaction.class, Transaction.COLLECTION_NAME);
+        return transactionList;
     }
 }

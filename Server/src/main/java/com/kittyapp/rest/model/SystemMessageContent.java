@@ -1,6 +1,7 @@
 package com.kittyapp.rest.model;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SystemMessageContent
@@ -8,7 +9,7 @@ public class SystemMessageContent
     private String description;
     private String type;
     private String location;
-    private ZonedDateTime timestamp;
+    private Date timestamp;
     private double cost;
     
     /**
@@ -19,11 +20,11 @@ public class SystemMessageContent
      * @param cost
      */
     public SystemMessageContent(
-        @JsonProperty("description") String description, 
-        @JsonProperty("type") String type, 
-        @JsonProperty("location") String location, 
-        @JsonProperty("cost") double cost,
-        @JsonProperty("timestamp") ZonedDateTime timestamp)
+        @JsonProperty("description") String description,
+        @NotNull @JsonProperty("type") String type,
+        @NotNull @JsonProperty("location") String location,
+        @NotNull @JsonProperty("cost") double cost,
+        @NotNull @JsonProperty("timestamp") Date timestamp)
     {
         this.description = description;
         this.type = type;
@@ -106,7 +107,7 @@ public class SystemMessageContent
     /**
      * @return the timestamp
      */
-    public ZonedDateTime getTimestamp()
+    public Date getTimestamp()
     {
         return this.timestamp;
     }
@@ -115,7 +116,7 @@ public class SystemMessageContent
     /**
      * @param timestamp the timestamp to set
      */
-    public void setTimestamp(ZonedDateTime timestamp)
+    public void setTimestamp(Date timestamp)
     {
         this.timestamp = timestamp;
     }      

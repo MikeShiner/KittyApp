@@ -22,6 +22,7 @@ public class JsonConfiguration
         });
         builder.featuresToEnable(new Object[] {SerializationFeature.INDENT_OUTPUT });
         builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+        builder.simpleDateFormat("yyyy-MM-dd");
         return builder.build();
     }
 }

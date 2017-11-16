@@ -1,6 +1,7 @@
 package com.kittyapp.dataaccess.entities;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 
@@ -21,7 +22,7 @@ public class Transaction
     private String type;
     private String location;
     private double cost;
-    private ZonedDateTime timestamp;
+    private Date timestamp;
     private ZonedDateTime createdTimestamp;
     /**
      * Constructor for creating a new instance of {@link Transaction}
@@ -34,7 +35,7 @@ public class Transaction
      */
     @PersistenceConstructor
     public Transaction(
-        String description, String type, String location, double cost, ZonedDateTime timestamp,
+        String description, String type, String location, double cost, Date timestamp,
         ZonedDateTime createdTimestamp)
     {
         this.description = description;
@@ -120,14 +121,14 @@ public class Transaction
     /**
      * @return the timestamp
      */
-    public ZonedDateTime getTimestamp()
+    public Date getTimestamp()
     {
         return this.timestamp;
     }
     /**
-     * @param timestamp the timestamp to set
+     * @param the timestamp to set
      */
-    public void setTimestamp(ZonedDateTime timestamp)
+    public void setTimestamp(Date timestamp)
     {
         this.timestamp = timestamp;
     }

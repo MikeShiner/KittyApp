@@ -2,6 +2,7 @@ package com.kittyapp.rest;
 
 import java.time.Clock;
 import java.time.ZonedDateTime;
+import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +35,18 @@ public class TransactionController
     {
         return filter.getMonth();
     }
+    
+    @RequestMapping(
+        path = "/all",
+        method = RequestMethod.GET)
+    public List<Transaction> getAllTransactions(TransactionFilter filter)
+    {
+        List<Transaction> list =  this.transactionDao.getAllTransaction();
+        return list;
+    }
 
-    @RequestMapping(path = "/add", 
+    @RequestMapping(
+        path = "/add", 
         method = RequestMethod.POST, 
         consumes = MediaType.APPLICATION_JSON_VALUE, 
         produces = MediaType.APPLICATION_JSON_VALUE)
