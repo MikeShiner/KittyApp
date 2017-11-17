@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.stereotype.Component;
 import com.kittyapp.dataaccess.dao.TransactionDao;
 import com.kittyapp.dataaccess.entities.Transaction;
-import com.kittyapp.rest.model.filter.TransactionFilter;
+import com.kittyapp.rest.model.filter.DateFilter;
 
 @Component
 public class TransactionMongoDao implements TransactionDao
@@ -42,7 +42,7 @@ public class TransactionMongoDao implements TransactionDao
      * @return
      */
     @Override
-    public List<Transaction> getTransactions(TransactionFilter filter, Pageable paging)
+    public List<Transaction> getTransactions(DateFilter filter, Pageable paging)
     {
         List<AggregationOperation> ops = new ArrayList<>();
         // TODO need to seperate this out in to a different aggregation class
@@ -75,7 +75,7 @@ public class TransactionMongoDao implements TransactionDao
         return transactionList;
     }
     
-    private static CriteriaDefinition getFilterCriteria(TransactionFilter filter)
+    private static CriteriaDefinition getFilterCriteria(DateFilter filter)
     {
         List<Criteria> criteriaList = new ArrayList<>();
         LocalDate startRange = LocalDate.of(filter.getYear(), filter.getMonth(), 1);

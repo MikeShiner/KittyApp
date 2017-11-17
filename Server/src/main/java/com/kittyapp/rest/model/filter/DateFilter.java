@@ -1,6 +1,6 @@
 package com.kittyapp.rest.model.filter;
 
-public class TransactionFilter
+public class DateFilter
 {
     private int month;
     private int year;
