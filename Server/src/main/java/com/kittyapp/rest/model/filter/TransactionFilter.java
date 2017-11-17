@@ -3,6 +3,7 @@ package com.kittyapp.rest.model.filter;
 public class TransactionFilter
 {
     private int month;
+    private int year;
 
     /**
      * @return the month
@@ -18,5 +19,21 @@ public class TransactionFilter
     public void setMonth(int month)
     {
         this.month = month;
+    }
+
+    /**
+     * @return the year
+     */
+    public int getYear()
+    {
+        return this.year;
+    }
+
+    /**
+     * @param year the year to set
+     */
+    public void setYear(int year)
+    {
+        this.year = year;
     }
 }
