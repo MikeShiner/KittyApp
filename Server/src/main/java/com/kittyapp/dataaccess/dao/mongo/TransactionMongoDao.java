@@ -27,7 +27,7 @@ public class TransactionMongoDao implements TransactionDao
 
     @Autowired
     private MongoOperations mongoOps;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -46,25 +46,28 @@ public class TransactionMongoDao implements TransactionDao
     {
         List<AggregationOperation> ops = new ArrayList<>();
         // TODO need to seperate this out in to a different aggregation class
-        if (paging.getSort() != null)
+        if (paging != null)
         {
-            ops.add(sort(paging.getSort()));
+            if (paging.getSort() != null)
+            {
+                ops.add(sort(paging.getSort()));
+            }
+            ops.add(skip((long) paging.getOffset()));
+            ops.add(limit(paging.getPageSize()));
         }
-        ops.add(skip((long) paging.getOffset()));
-        ops.add(limit(paging.getPageSize()));
-        
-        if(filter.getMonth() > 0 && filter.getYear() > 0)
+
+        if (filter.getMonth() > 0 && filter.getYear() > 0)
         {
-            ops.add(match(getFilterCriteria(filter)));            
+            ops.add(match(getFilterCriteria(filter)));
         }
-                
+
         TypedAggregation<?> aggr = Aggregation.newAggregation(Transaction.class, ops);
 
-            return this.mongoOps.aggregate(
-                aggr, Transaction.COLLECTION_NAME, Transaction.class)
-                .getMappedResults();
+        return this.mongoOps.aggregate(
+            aggr, Transaction.COLLECTION_NAME, Transaction.class)
+            .getMappedResults();
     }
-    
+
     /**
      * @return
      */
@@ -74,7 +77,7 @@ public class TransactionMongoDao implements TransactionDao
         List<Transaction> transactionList = this.mongoOps.findAll(Transaction.class, Transaction.COLLECTION_NAME);
         return transactionList;
     }
-    
+
     private static CriteriaDefinition getFilterCriteria(DateFilter filter)
     {
         List<Criteria> criteriaList = new ArrayList<>();
@@ -85,5 +88,5 @@ public class TransactionMongoDao implements TransactionDao
             where(Transaction.FIELD_TIMESTAMP).lte(endRange)));
 
         return new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
-    }    
+    }
 }
