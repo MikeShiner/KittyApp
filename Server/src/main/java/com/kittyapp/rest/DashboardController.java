@@ -25,20 +25,19 @@ public class DashboardController
     @RequestMapping(method = RequestMethod.GET)
     public Dashboard getDashboard(TransactionFilter filter)
     {
-        return getDashboardData(filter);
+        Dashboard dash = getDashboardData(filter);
+        LOGGER.info("Dashboard Request: {}", dash);
+        return dash;
     }
     
     private Dashboard getDashboardData(TransactionFilter filter)
-    {    	
-        double monthInitial = AppConfig.getMonthlyInitial();
-        LOGGER.info("" + monthInitial);
-        
+    {    	 
         filter.setQty(5);
     	List<Transaction> lastTransactions_5 = transactionDao.getTransactions(filter, null);
     	double runningTotal = transactionDao.getRunningTotal(filter);
-    	
-    	Dashboard dash = new Dashboard(lastTransactions_5, (monthInitial - runningTotal));
-    	return dash;
+    	double fundsRemaining = AppConfig.getMonthlyInitial() - runningTotal;
+
+    	return new Dashboard(lastTransactions_5, fundsRemaining);
     }
 
 }
