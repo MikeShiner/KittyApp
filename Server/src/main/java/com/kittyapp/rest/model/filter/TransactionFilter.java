@@ -1,9 +1,10 @@
 package com.kittyapp.rest.model.filter;
 
-public class DateFilter
+public class TransactionFilter
 {
     private int month;
     private int year;
+    private int qty;
 
     /**
      * @return the month
@@ -35,5 +36,21 @@ public class DateFilter
     public void setYear(int year)
     {
         this.year = year;
+    }
+
+    /**
+     * @return the qty
+     */
+    public int getQty()
+    {
+        return this.qty;
+    }
+
+    /**
+     * @param qty the qty to set
+     */
+    public void setQty(int qty)
+    {
+        this.qty = qty;
     }
 }

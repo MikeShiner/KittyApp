@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kittyapp.dataaccess.dao.TransactionDao;
 import com.kittyapp.dataaccess.entities.Transaction;
 import com.kittyapp.rest.model.SystemMessageContent;
-import com.kittyapp.rest.model.filter.DateFilter;
+import com.kittyapp.rest.model.filter.TransactionFilter;
 
 @RestController
 @RequestMapping("/transactions")
@@ -32,7 +32,7 @@ public class TransactionController
     private TransactionDao transactionDao;
     
     @RequestMapping(method = RequestMethod.GET)
-    public List<Transaction> getTransactions(DateFilter filter, Pageable paging)
+    public List<Transaction> getTransactions(TransactionFilter filter, Pageable paging)
     {
         return this.transactionDao.getTransactions(filter, paging);
     }

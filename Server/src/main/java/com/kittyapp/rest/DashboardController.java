@@ -11,7 +11,7 @@ import com.kittyapp.configuration.AppConfiguration;
 import com.kittyapp.dataaccess.dao.TransactionDao;
 import com.kittyapp.dataaccess.entities.Dashboard;
 import com.kittyapp.dataaccess.entities.Transaction;
-import com.kittyapp.rest.model.filter.DateFilter;
+import com.kittyapp.rest.model.filter.TransactionFilter;
 
 @RestController
 @RequestMapping("/dashboard")
@@ -23,18 +23,22 @@ public class DashboardController
 	@Autowired private AppConfiguration AppConfig;
 	
     @RequestMapping(method = RequestMethod.GET)
-    public Dashboard getDashboard(DateFilter filter)
+    public Dashboard getDashboard(TransactionFilter filter)
     {
         return getDashboardData(filter);
     }
     
-    private Dashboard getDashboardData(DateFilter filter)
+    private Dashboard getDashboardData(TransactionFilter filter)
     {    	
         double monthInitial = AppConfig.getMonthlyInitial();
+        LOGGER.info("" + monthInitial);
+        
+        filter.setQty(5);
     	List<Transaction> lastTransactions_5 = transactionDao.getTransactions(filter, null);
-    	LOGGER.info("MONTLY TOTAL : " + monthInitial);
-    	LOGGER.info("Transactions : " + lastTransactions_5);
-    	return new Dashboard(null, 0);    	
+    	double runningTotal = transactionDao.getRunningTotal(filter);
+    	
+    	Dashboard dash = new Dashboard(lastTransactions_5, (monthInitial - runningTotal));
+    	return dash;
     }
 
 }
