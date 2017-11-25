@@ -100,18 +100,24 @@ public class TransactionMongoDao implements TransactionDao
 
     private static CriteriaDefinition getFilterCriteria(TransactionFilter filter)
     {
+    	Criteria dateCriteria = new Criteria();
         List<Criteria> criteriaList = new ArrayList<>();
 
         if (filter.getMonth() > 0 && filter.getYear() > 0)
         {
             LocalDate startRange = LocalDate.of(filter.getYear(), filter.getMonth(), 1);
             LocalDate endRange = startRange.withDayOfMonth(startRange.lengthOfMonth());
-            criteriaList.add(new Criteria().orOperator(
+            dateCriteria = new Criteria().andOperator(
                 where(Transaction.FIELD_TIMESTAMP).gt(startRange),
-                where(Transaction.FIELD_TIMESTAMP).lte(endRange)));
+                where(Transaction.FIELD_TIMESTAMP).lte(endRange));
+            criteriaList.add(dateCriteria);
         }
 
-        return new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
+//        return new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
+        
+        // mLab has restrictions using and operators for empty arrays. Since we only have one criteria,
+        // we have to return the criteria directly.
+        return dateCriteria;
     }
 
 }

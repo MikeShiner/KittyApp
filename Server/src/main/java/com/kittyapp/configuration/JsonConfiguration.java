@@ -17,8 +17,9 @@ public class JsonConfiguration
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
         builder.featuresToDisable(new Object[] {
             DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE,
-            DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-            SerializationFeature.WRITE_DATES_AS_TIMESTAMPS
+            DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
+            
+//            SerializationFeature.WRITE_DATES_AS_TIMESTAMPS
         });
         builder.featuresToEnable(new Object[] {SerializationFeature.INDENT_OUTPUT });
         builder.serializationInclusion(JsonInclude.Include.NON_NULL);

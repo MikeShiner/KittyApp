@@ -14,10 +14,11 @@ public class SystemMessageContent
     
     /**
      * Constructor for creating a new instance of {@link SystemMessageContent}
-     * @param description
-     * @param type
-     * @param location
-     * @param cost
+     * @param description Sort description of the transaction
+     * @param type Basic type i.e. Food Shopping, Takeout, Treats..
+     * @param location Where the transaction took place 
+     * @param cost How much the transaction was for
+     * @param timstamp When the transaction occurred
      */
     public SystemMessageContent(
         @JsonProperty("description") String description,

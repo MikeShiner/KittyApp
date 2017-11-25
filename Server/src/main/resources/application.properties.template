@@ -1,5 +1,13 @@
+#server.port=80
+
 # MongoDB access
 spring.data.mongodb.host={host}
 spring.data.mongodb.database={db}
 spring.data.mongodb.username={dbUser}
 spring.data.mongodb.password={dbPass}
+
+# mLab (Optional)
+spring.data.mongodb.uri={mLabUri}
+
+# Application Variables
+# monthly.spend.total={double}
