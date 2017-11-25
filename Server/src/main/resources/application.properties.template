@@ -10,4 +10,4 @@ spring.data.mongodb.password={dbPass}
 spring.data.mongodb.uri={mLabUri}
 
 # Application Variables
-# monthly.spend.total={double}
+# kittyapp.monthlyInitial={double}
