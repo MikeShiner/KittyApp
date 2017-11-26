@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  // microserverApiUrl: 'http://ec2-35-176-42-166.eu-west-2.compute.amazonaws.com:8080'
   microserverApiUrl: 'http://localhost:8080'
 };
