@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.data.mongodb.core.convert.CustomConversions;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 public class MongoDbConfiguration
