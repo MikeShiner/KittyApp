@@ -1,0 +1,35 @@
+.month-changer {
+    text-align: center;
+}
+#fundsLeft {
+    text-align: center;
+    font-size: 3.5em;
+}
+#fundsLeft > span {
+    font-size: 0.5em !important;
+}
+#remaining {
+    text-align: right;
+    padding-right: 40%;
+    margin-top: -10px;
+}
+#last5transaction-table {
+    margin-top: 20px;    
+    width: 100%;
+}
+#last5transaction-table > thead {
+    font-size: 1.5em;
+    border-top: 2px solid #CCC;
+    border-bottom: 2px solid #CCC;
+}
+.addform-inline {
+    display: inline-block;
+    width: 45%;
+}
+#add-cost, #add-date {
+    display: inline-block !important;
+    width: 90% !important;
+}
+.middle-align {
+    margin: 0 auto;
+}

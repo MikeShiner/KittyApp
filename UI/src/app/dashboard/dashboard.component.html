@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row month-changer">
+    <div id="previous-month" class="col-xs-3">Previous</div>
+    <div id="current-month" class="col-xs-6">{{currentMonthShow}}</div>
+    <div id="next-month" class="col-xs-3">Next</div>
+  </div>
+</div>
+<h1 id="moneyRemaining"></h1>
+<div class="container">
+  <div class="row">
+    <div id="fundsLeft" class="col-xs-12">£{{fundsLeftRep}}</div>
+    <div id="remaining" class="col-xs-12">remaining</div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button> + Add </button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Transcation form -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <add-transaction-form></add-transaction-form>
+    </div>
+  </div>
+</div>
+
+<!-- Last 5 Transactions -->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <table id="last5transaction-table">
+        <thead>
+          <td colspan="2">Last 5 Transactions</td>
+        </thead>
+        <tbody *ngFor="let trans of last5Transactions">
+          <tr>
+            <td>{{trans.location}}</td>
+            <td>{{trans.cost}}</td>
+          </tr>
+          <tr>
+            <td>{{trans.description}}</td>
+            <td>{{trans.type}}</td>
+          </tr>
+          <tr>{{trans.timestamp | date: 'dd/MM/yyyy'}}</tr>
+        </tbody>
+      </table>
+      <div></div>
+    </div>
+  </div>
+</div>
