@@ -1,55 +1,144 @@
 <div class="container-fluid">
-  <div class="row month-changer">
-    <div id="previous-month" class="col-xs-3">Previous</div>
-    <div id="current-month" class="col-xs-6">{{currentMonthShow}}</div>
-    <div id="next-month" class="col-xs-3">Next</div>
-  </div>
-</div>
-<h1 id="moneyRemaining"></h1>
-<div class="container">
-  <div class="row">
-    <div id="fundsLeft" class="col-xs-12">£{{fundsLeftRep}}</div>
-    <div id="remaining" class="col-xs-12">remaining</div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <button> + Add </button>
-    </div>
-  </div>
-</div>
+    <div class="row">
 
-<!-- Add Transcation form -->
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <add-transaction-form></add-transaction-form>
-    </div>
-  </div>
-</div>
+        <!-- Remaining Left -->
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p id="total-remaining">£{{dashboardData.fundsLeft}}</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <p class="remainingText">Remaining</p>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        <div class="stats">
+                            £{{dashboardData.fundsLeft}} remaining
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Quick Add  -->
+        <div class="container-fluid" id="quickAdd-container">
+            <div class="row">
+                <div class="col-xs-12" (click)="toggle()">
+                    <i class="ti-plus"></i> Quick Add</div>
+            </div>
+            <div class="row">
+                <div class="slidedown-container" [@toggle]="state">
+                    <form>
+                        <!-- Type -->
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select class="form-control border-input" (change)="toggleOtherInput('type', $event.target.value)">
+                                        <option selected>-</option>
+                                        <option *ngFor="let option of type_dropdown">{{option}}</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <input type="text" [style.display]="qaTypeControl ? 'block' : 'none'" id="locationAlt" class="form-control border-input"
+                                    placeholder="Pick a category">
+                            </div>
+                        </div>
 
-<!-- Last 5 Transactions -->
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <table id="last5transaction-table">
-        <thead>
-          <td colspan="2">Last 5 Transactions</td>
-        </thead>
-        <tbody *ngFor="let trans of last5Transactions">
-          <tr>
-            <td>{{trans.location}}</td>
-            <td>{{trans.cost}}</td>
-          </tr>
-          <tr>
-            <td>{{trans.description}}</td>
-            <td>{{trans.type}}</td>
-          </tr>
-          <tr>{{trans.timestamp | date: 'dd/MM/yyyy'}}</tr>
-        </tbody>
-      </table>
-      <div></div>
-    </div>
-  </div>
-</div>
+                        <!-- Location -->
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <select class="form-control border-input" (change)="toggleOtherInput('location', $event.target.value)">
+                                        <option selected>-</option>
+                                        <option *ngFor="let option of location_dropdown">{{option}}</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <input type="text" [style.display]="qaLocControl ? 'block' : 'none'" id="locationAlt" class="form-control border-input" placeholder="Where was it bought?">
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <input type="text" class="form-control border-input" placeholder="Short Description">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date/Cost -->
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Cost</label>
+                                    <input type="text" class="form-control border-input" placeholder="£">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="text" class="form-control border-input" placeholder="Short Description">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info btn-fill btn-wd">Add Transaction</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Last 5 Transactions -->
+        <div class="container-fluid" id="last5Transactions-container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="card card-plain">
+                        <div class="header">
+                            <h4 class="title">Last 5 Transactions</h4>
+                            <!-- <p class="category"></p> -->
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="card transaction-card">
+                                <div class="content">
+                                    <div class="row" *ngFor="let trans of dashboardData.last5Transactions">
+                                        <div class="col-xs-12 col-sm-4">
+                                            {{trans.type}}
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <i class="ti-location-arrow"></i> {{trans.location}}
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <i class="ti-calendar"></i> {{trans.timestamp}}
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-4">
+                                            <i class="ti-pencil-alt"></i> {{trans.description}}
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            £{{trans.cost.toFixed(2)}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

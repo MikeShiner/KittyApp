@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+#total-remaining {
+  font-size: 4em;
+  text-align: center;
+}
+.remainingText {
+  text-align: center;
+  margin-right: -230px;
+  margin-top: -20px;
+}
+.transaction-card {
+  font-size: 1.2em;
+}
+#last5Transactions-container {
+
+}
+#last5Transactions-container .title {
+  font-size: 1.8em;
+  padding-bottom: 10px;
+}
+#quickAdd-container {
+
+}
+.slidedown-container {
+  overflow: hidden;
+}
