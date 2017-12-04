@@ -11,16 +11,22 @@
 .transaction-card {
   font-size: 1.2em;
 }
-#last5Transactions-container {
 
-}
 #last5Transactions-container .title {
   font-size: 1.8em;
   padding-bottom: 10px;
 }
-#quickAdd-container {
 
-}
 .slidedown-container {
   overflow: hidden;
+}
+.material-block {
+  display:block !important;
+}
+.material-block input {
+  background-color: #fffcf5 !important;
+}
+
+.quickAddForm-error {
+  border: 2px solid red;
 }

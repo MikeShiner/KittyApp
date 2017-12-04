@@ -9,6 +9,7 @@ import {FormControl} from '@angular/forms';
 import { ApiClientService } from '../services/apiclient.service';
 import { Observable } from 'rxjs/Observable';
 import { DashboardData } from '../class/dashboard-data';
+import { Transaction } from 'app/class/transaction';
 
 declare var $: any;
 
@@ -32,15 +33,23 @@ export class DashboardComponent implements OnInit {
 
   private dashboardData: DashboardData = new DashboardData();
   private location_dropdown: Array<string>;
+  private type_dropdown: Array<string>;
 
+  private quickAddTransaction: Transaction = new Transaction();
+  
+  
   testArray: Array<string> = ['one', 'two'];
-
+  
   // Quick Add form controls
-  qaLocControl = false;
-  qaTypeControl = false;
+  locationCtrl: FormControl = new FormControl();
+  typeCtrl: FormControl = new FormControl();
+  descriptionCtrl: FormControl = new FormControl();
+  costCtrl: FormControl = new FormControl();
+  dateCtrl: FormControl = new FormControl();
+
 
   constructor(private apiClientService: ApiClientService) {
-
+    
   }
 
   ngOnInit() {
@@ -52,30 +61,32 @@ export class DashboardComponent implements OnInit {
 
     this.apiClientService.getTransactionTypes().subscribe((data) => {
       this.location_dropdown = data;
-      console.log(this.location_dropdown);
     });
   }
 
   toggle() {
     this.state = (this.state == "open") ? "closed" : "open";
   }
-
-  toggleOtherInput(type, value) {
-    console.log(this.qaLocControl);
-    if (type == "location") {
-      if (value == "Other") {
-        this.qaLocControl = true;
-      } else {
-        this.qaLocControl = false;
-      }
+  onSubmit() {
+    console.log("Form Submitted!");
+    
+    if(this.typeCtrl.value != null) {
+      this.quickAddTransaction.type = this.typeCtrl.value;
+    } 
+    if(this.locationCtrl.value != null) {
+      this.quickAddTransaction.location = this.locationCtrl.value;
     }
-
-    if (type == "type") {
-      if (value == "Other") {
-        this.qaTypeControl = true;
-      } else {
-        this.qaTypeControl = false;
-      }
+    if (this.descriptionCtrl.value != null) {
+      this.quickAddTransaction.description = this.descriptionCtrl.value;
     }
+    if(this.costCtrl.value != null && !isNaN(this.costCtrl.value)) {
+      this.quickAddTransaction.cost = this.costCtrl.value;
+    }
+    if(this.dateCtrl.value != null) {
+      this.quickAddTransaction.date = this.dateCtrl.value;
+    }
+    this.apiClientService.addTransaction(this.quickAddTransaction);
+    console.log(this.quickAddTransaction);
   }
+
 }
