@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Transaction } from '../class/transaction';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
@@ -24,9 +24,7 @@ export class ApiClientService {
   }
 
   public addTransaction(newTransaction: Transaction) {
-    console.log(JSON.stringify(newTransaction));
-    this.http.post(this.END_POINT + '/transactions', JSON.stringify(newTransaction)).subscribe((res) => {
-      console.log(res);
-    });
+    let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post(this.END_POINT + '/transactions/add', JSON.stringify(newTransaction), {headers: headers});
   }
 }

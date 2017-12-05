@@ -33,12 +33,11 @@ export class DashboardComponent implements OnInit {
 
   private dashboardData: DashboardData = new DashboardData();
   private location_dropdown: Array<string>;
-  private type_dropdown: Array<string>;
+  type_dropdown: Array<string> = ['one', 'two'];
 
   private quickAddTransaction: Transaction = new Transaction();
   
   
-  testArray: Array<string> = ['one', 'two'];
   
   // Quick Add form controls
   locationCtrl: FormControl = new FormControl();
@@ -53,14 +52,19 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.refreshDashboard();
+  }
+  
+  refreshDashboard(){    
     this.apiClientService.getDashboardData(1, 1).subscribe((data) => {
       this.dashboardData.fundsLeft = data["fundsLeft"];
       this.dashboardData.last5Transactions = data["lastTransactions_5"];
     });
-
+  
     this.apiClientService.getTransactionTypes().subscribe((data) => {
       this.location_dropdown = data;
+      console.log(this.location_dropdown);
+      console.log(this.type_dropdown);
     });
   }
 
@@ -79,14 +83,20 @@ export class DashboardComponent implements OnInit {
     if (this.descriptionCtrl.value != null) {
       this.quickAddTransaction.description = this.descriptionCtrl.value;
     }
+    console.log(this.costCtrl);
     if(this.costCtrl.value != null && !isNaN(this.costCtrl.value)) {
       this.quickAddTransaction.cost = this.costCtrl.value;
     }
     if(this.dateCtrl.value != null) {
       this.quickAddTransaction.date = this.dateCtrl.value;
     }
-    this.apiClientService.addTransaction(this.quickAddTransaction);
-    console.log(this.quickAddTransaction);
+    this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) =>{
+      console.log(data);
+      this.refreshDashboard();
+    }, (error:any) => {
+      console.error(error);
+    });
+    
   }
 
 }

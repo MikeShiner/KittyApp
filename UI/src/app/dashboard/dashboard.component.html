@@ -38,8 +38,8 @@
                                 <div class="form-group">
                                     <label>Type</label>
                                     <mat-form-field class="material-block">
-                                        <input type="text" class="form-control border-input" placeholder="Type of transaction" matInput [formControl]="typeCtrl" [matAutocomplete]="auto">
-                                        <mat-autocomplete #auto="matAutocomplete">
+                                        <input type="text" class="form-control border-input" placeholder="Type of transaction" matInput [formControl]="typeCtrl" [matAutocomplete]="autoType">
+                                        <mat-autocomplete #autoType="matAutocomplete">
                                           <mat-option *ngFor="let option of type_dropdown" [value]="option">
                                             {{ option }}
                                           </mat-option>
@@ -82,7 +82,7 @@
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <label>Cost</label>
-                                    <input type="text" class="form-control border-input" placeholder="£">
+                                    <input type="text" class="form-control border-input" placeholder="£" [formControl]="costCtrl">
                                 </div>
                             </div>
                             <div class="col-xs-6">
