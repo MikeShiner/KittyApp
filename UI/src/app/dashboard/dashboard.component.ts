@@ -83,30 +83,6 @@ export class DashboardComponent implements OnInit {
     console.log("Form Submitted!");
     console.log(this.quickAddForm);
     
-    
-    // if(this.typeCtrl.value != null) {
-    //   this.quickAddTransaction.type = this.typeCtrl.value;
-    // } 
-    // if(this.locationCtrl.value != null) {
-    //   this.quickAddTransaction.location = this.locationCtrl.value;
-    // }
-    // if (this.descriptionCtrl.value != null) {
-    //   this.quickAddTransaction.description = this.descriptionCtrl.value;
-    // }
-    // console.log(this.costCtrl);
-    // if(this.costCtrl.value != null && !isNaN(this.costCtrl.value)) {
-    //   this.quickAddTransaction.cost = this.costCtrl.value;
-    // }
-    // if(this.dateCtrl.value != null) {
-    //   this.quickAddTransaction.date = this.dateCtrl.value;
-    // }
-    // this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) =>{
-    //   console.log(data);
-    //   this.refreshDashboard();
-    // }, (error:any) => {
-    //   console.error(error);
-    // });
-    
   }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.CriteriaDefinition;
@@ -84,8 +85,13 @@ public class TransactionMongoDao implements TransactionDao
 
         
         TypedAggregation<?> aggr = Aggregation.newAggregation(Transaction.class, ops);
-        return this.mongoOps.aggregate(
-            aggr, Transaction.COLLECTION_NAME, BasicDBObject.class).getUniqueMappedResult().getDouble("total");
+        AggregationResults<BasicDBObject> aggregationResults = this.mongoOps.aggregate(
+            aggr, Transaction.COLLECTION_NAME, BasicDBObject.class);
+        try {
+            return aggregationResults.getUniqueMappedResult().getDouble("total");
+        } catch (Exception ex) {
+            return 0.0;
+        }
     }
 
     /**
