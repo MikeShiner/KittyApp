@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
 
   private dashboardData: DashboardData = new DashboardData();
   private location_dropdown: Array<string>;
-  type_dropdown: Array<string> = ['one', 'two'];
+  private types_dropdown: Array<string>;
 
 
 
@@ -65,8 +65,11 @@ export class DashboardComponent implements OnInit {
       this.dashboardData.last5Transactions = data["lastTransactions_5"];
     });
 
-    this.apiClientService.getTransactionTypes().subscribe((data) => {
+    this.apiClientService.getTransactionLocations().subscribe((data) => {
       this.location_dropdown = data;
+    });
+    this.apiClientService.getTransactionTypes().subscribe((data) => {
+      this.types_dropdown = data;
     });
   }
 
@@ -75,11 +78,9 @@ export class DashboardComponent implements OnInit {
   }
 
   submitForm() {
-    console.log("Form Submitted!");
     if (this.quickAddForm.status == "INVALID") {
-      console.log("Form is broken! :(");
+      console.error("Form is invalid!");
     } else {
-      console.log("Form is fine!");
       let inputdate = this.quickAddForm.controls["date"].value;
       let stringDate = inputdate.getFullYear() + "-" + (inputdate.getMonth() + 1) +
         "-" + (inputdate.getDay() + 1)

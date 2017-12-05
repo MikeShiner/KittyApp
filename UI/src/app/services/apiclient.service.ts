@@ -19,8 +19,12 @@ export class ApiClientService {
     return this.http.get(this.END_POINT + "/dashboard");
   }
 
-  public getTransactionTypes(): Observable<any> {
+  public getTransactionLocations(): Observable<any> {
     return this.http.get(this.END_POINT + "/details/location");
+  }
+
+  public getTransactionTypes(): Observable<any> {
+    return this.http.get(this.END_POINT + "/details/type");
   }
 
   public addTransaction(newTransaction: Transaction) {

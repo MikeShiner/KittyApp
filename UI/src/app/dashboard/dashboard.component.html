@@ -40,7 +40,7 @@
                                     <mat-form-field class="material-block">
                                         <input type="text" class="form-control border-input" placeholder="Type of transaction" matInput formControlName="type" [matAutocomplete]="autoType">
                                         <mat-autocomplete #autoType="matAutocomplete">
-                                            <mat-option *ngFor="let option of type_dropdown" [value]="option">
+                                            <mat-option *ngFor="let option of types_dropdown" [value]="option">
                                                 {{ option }}
                                             </mat-option>
                                         </mat-autocomplete>

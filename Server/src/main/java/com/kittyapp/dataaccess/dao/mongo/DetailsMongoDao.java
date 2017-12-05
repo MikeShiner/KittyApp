@@ -19,10 +19,20 @@ public class DetailsMongoDao implements DetailsDao
     @SuppressWarnings("unchecked")
     @Override
     public List<String> getLocations()
-    {
-        
+    {      
         return this.mongoOps.getCollection(Transaction.COLLECTION_NAME)
             .distinct(Transaction.FIELD_LOCATION);
+    }
+    
+    /**
+     * @return Returns unique list of locations
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> getTypes()
+    {
+        return this.mongoOps.getCollection(Transaction.COLLECTION_NAME)
+            .distinct(Transaction.FIELD_TYPE);
     }
 
 }

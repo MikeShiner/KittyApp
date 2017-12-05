@@ -5,4 +5,6 @@ import java.util.List;
 public interface DetailsDao
 {
     List<String> getLocations();
+    
+    List<String> getTypes();
 }

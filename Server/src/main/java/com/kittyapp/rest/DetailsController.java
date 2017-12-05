@@ -30,4 +30,15 @@ public class DetailsController
         
         return detailsDao.getLocations();
     }
+    
+    @RequestMapping(
+        path = "/type",
+        method = RequestMethod.GET, 
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getTypes() throws Exception
+    {
+        LOGGER.info("Getting list of types.");       
+        
+        return detailsDao.getTypes();
+    }
 }

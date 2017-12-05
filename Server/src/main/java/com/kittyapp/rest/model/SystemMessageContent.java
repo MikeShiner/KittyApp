@@ -25,7 +25,7 @@ public class SystemMessageContent
         @NotNull @JsonProperty("type") String type,
         @NotNull @JsonProperty("location") String location,
         @NotNull @JsonProperty("cost") double cost,
-        @NotNull @JsonProperty("timestamp") Date timestamp)
+        @NotNull @JsonProperty("date") Date timestamp)
     {
         this.description = description;
         this.type = type;
