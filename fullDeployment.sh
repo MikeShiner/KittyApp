@@ -14,7 +14,7 @@ echo "*** UI Upgrade ***"
 echo "**********************"
 cd ../UI
 # Build Angular frontend
-ng build --env=prod
+sudo ng build --env=prod
 # Remove any running instances of webserver.js
 sudo kill $(ps aux | grep 'webserver.js' | awk '{print $2}')
 # Start Node process in background
