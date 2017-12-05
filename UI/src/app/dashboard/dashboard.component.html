@@ -31,14 +31,14 @@
             </div>
             <div class="row">
                 <div class="slidedown-container" [@toggle]="state">
-                    <form (ngSubmit)="onSubmit()">
+                    <form [formGroup]="quickAddForm" (ngSubmit)="submitForm()">
                         <!-- Type -->
                         <div class="row">
                             <div class="col-xs-8 col-xs-offset-2">
                                 <div class="form-group">
                                     <label>Type</label>
                                     <mat-form-field class="material-block">
-                                        <input type="text" class="form-control border-input" placeholder="Type of transaction" matInput [formControl]="typeCtrl" [matAutocomplete]="autoType">
+                                        <input type="text" class="form-control border-input" placeholder="Type of transaction" matInput formControlName="type" [matAutocomplete]="autoType">
                                         <mat-autocomplete #autoType="matAutocomplete">
                                           <mat-option *ngFor="let option of type_dropdown" [value]="option">
                                             {{ option }}

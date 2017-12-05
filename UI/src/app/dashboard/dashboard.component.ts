@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { state, trigger, stagger, animate, style, group, query, transition, keyframes } from '@angular/animations';
 
-import {FormControl} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ApiClientService } from '../services/apiclient.service';
 import { Observable } from 'rxjs/Observable';
@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
   
   
   // Quick Add form controls
+  quickAddForm: FormGroup;
   locationCtrl: FormControl = new FormControl();
   typeCtrl: FormControl = new FormControl();
   descriptionCtrl: FormControl = new FormControl();
@@ -47,8 +48,14 @@ export class DashboardComponent implements OnInit {
   dateCtrl: FormControl = new FormControl();
 
 
-  constructor(private apiClientService: ApiClientService) {
-    
+  constructor(private apiClientService: ApiClientService, private fb: FormBuilder) {
+    this.quickAddForm = this.fb.group({
+      'type': new FormControl('', Validators.required),
+      'location': new FormControl('', Validators.required),
+      'description': new FormControl('', Validators.required),
+      'cost': new FormControl('', Validators.required),
+      'date': new FormControl('', Validators.required)
+    });
   }
 
   ngOnInit() {
@@ -71,31 +78,34 @@ export class DashboardComponent implements OnInit {
   toggle() {
     this.state = (this.state == "open") ? "closed" : "open";
   }
-  onSubmit() {
+
+  submitForm() {
     console.log("Form Submitted!");
+    console.log(this.quickAddForm);
     
-    if(this.typeCtrl.value != null) {
-      this.quickAddTransaction.type = this.typeCtrl.value;
-    } 
-    if(this.locationCtrl.value != null) {
-      this.quickAddTransaction.location = this.locationCtrl.value;
-    }
-    if (this.descriptionCtrl.value != null) {
-      this.quickAddTransaction.description = this.descriptionCtrl.value;
-    }
-    console.log(this.costCtrl);
-    if(this.costCtrl.value != null && !isNaN(this.costCtrl.value)) {
-      this.quickAddTransaction.cost = this.costCtrl.value;
-    }
-    if(this.dateCtrl.value != null) {
-      this.quickAddTransaction.date = this.dateCtrl.value;
-    }
-    this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) =>{
-      console.log(data);
-      this.refreshDashboard();
-    }, (error:any) => {
-      console.error(error);
-    });
+    
+    // if(this.typeCtrl.value != null) {
+    //   this.quickAddTransaction.type = this.typeCtrl.value;
+    // } 
+    // if(this.locationCtrl.value != null) {
+    //   this.quickAddTransaction.location = this.locationCtrl.value;
+    // }
+    // if (this.descriptionCtrl.value != null) {
+    //   this.quickAddTransaction.description = this.descriptionCtrl.value;
+    // }
+    // console.log(this.costCtrl);
+    // if(this.costCtrl.value != null && !isNaN(this.costCtrl.value)) {
+    //   this.quickAddTransaction.cost = this.costCtrl.value;
+    // }
+    // if(this.dateCtrl.value != null) {
+    //   this.quickAddTransaction.date = this.dateCtrl.value;
+    // }
+    // this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) =>{
+    //   console.log(data);
+    //   this.refreshDashboard();
+    // }, (error:any) => {
+    //   console.error(error);
+    // });
     
   }
 
