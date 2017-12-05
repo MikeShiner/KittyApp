@@ -82,13 +82,15 @@ export class DashboardComponent implements OnInit {
       console.error("Form is invalid!");
     } else {
       let inputdate = this.quickAddForm.controls["date"].value;
+
       let stringDate = inputdate.getFullYear() + "-" + (inputdate.getMonth() + 1) +
-        "-" + (inputdate.getDay() + 1)
+        "-" + inputdate.getDate();
+      this.quickAddTransaction.date = stringDate;
+
       this.quickAddTransaction.type = this.quickAddForm.controls["type"].value;
       this.quickAddTransaction.location = this.quickAddForm.controls["location"].value;
       this.quickAddTransaction.description = this.quickAddForm.controls["description"].value;
       this.quickAddTransaction.cost = parseInt(this.quickAddForm.controls["cost"].value);
-      this.quickAddTransaction.date = stringDate;
 
       this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) => {
         this.refreshDashboard();

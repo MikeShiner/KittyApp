@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
@@ -65,10 +66,11 @@ public class TransactionMongoDao implements TransactionDao
             ops.add(limit(filter.getQty()));
         }
 
+        ops.add(Aggregation.sort(Sort.Direction.DESC, Transaction.FIELD_TIMESTAMP));
         TypedAggregation<?> aggr = Aggregation.newAggregation(Transaction.class, ops);
 
         return this.mongoOps.aggregate(
-            aggr, Transaction.COLLECTION_NAME, Transaction.class)
+            aggr, Transaction.COLLECTION_NAME, Transaction.class)            
             .getMappedResults();
     }
 

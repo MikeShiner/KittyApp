@@ -13,7 +13,7 @@ public class Transaction
     public static final String FIELD_TYPE = "type";
     public static final String FIELD_LOCATION = "location";
     public static final String FIELD_COST = "cost";
-    public static final String FIELD_TIMESTAMP = "Timestamp";
+    public static final String FIELD_TIMESTAMP = "timestamp";
     public static final String FIELD_CREATED = "createdTimestamp";
     
     @Id
