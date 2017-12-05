@@ -3,5 +3,5 @@ export class Transaction {
     public description: string;
     public location: string;
     public cost: number;
-    public date: Date;
+    public date: string;
 }

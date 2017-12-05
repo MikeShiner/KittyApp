@@ -35,17 +35,14 @@ export class DashboardComponent implements OnInit {
   private location_dropdown: Array<string>;
   type_dropdown: Array<string> = ['one', 'two'];
 
-  private quickAddTransaction: Transaction = new Transaction();
-  
-  
-  
+
+
+
   // Quick Add form controls
+  private quickAddTransaction: Transaction = new Transaction();
   quickAddForm: FormGroup;
-  locationCtrl: FormControl = new FormControl();
-  typeCtrl: FormControl = new FormControl();
-  descriptionCtrl: FormControl = new FormControl();
-  costCtrl: FormControl = new FormControl();
-  dateCtrl: FormControl = new FormControl();
+  formErrors: Array<String>;
+
 
 
   constructor(private apiClientService: ApiClientService, private fb: FormBuilder) {
@@ -53,7 +50,7 @@ export class DashboardComponent implements OnInit {
       'type': new FormControl('', Validators.required),
       'location': new FormControl('', Validators.required),
       'description': new FormControl('', Validators.required),
-      'cost': new FormControl('', Validators.required),
+      'cost': new FormControl('', Validators.compose([Validators.required, Validators.pattern(/\d+\.?\d*/)])),
       'date': new FormControl('', Validators.required)
     });
   }
@@ -61,17 +58,15 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.refreshDashboard();
   }
-  
-  refreshDashboard(){    
+
+  refreshDashboard() {
     this.apiClientService.getDashboardData(1, 1).subscribe((data) => {
       this.dashboardData.fundsLeft = data["fundsLeft"];
       this.dashboardData.last5Transactions = data["lastTransactions_5"];
     });
-  
+
     this.apiClientService.getTransactionTypes().subscribe((data) => {
       this.location_dropdown = data;
-      console.log(this.location_dropdown);
-      console.log(this.type_dropdown);
     });
   }
 
@@ -81,8 +76,24 @@ export class DashboardComponent implements OnInit {
 
   submitForm() {
     console.log("Form Submitted!");
-    console.log(this.quickAddForm);
-    
+    if (this.quickAddForm.status == "INVALID") {
+      console.log("Form is broken! :(");
+    } else {
+      console.log("Form is fine!");
+      let inputdate = this.quickAddForm.controls["date"].value;
+      let stringDate = inputdate.getFullYear() + "-" + (inputdate.getMonth() + 1) +
+        "-" + (inputdate.getDay() + 1)
+      this.quickAddTransaction.type = this.quickAddForm.controls["type"].value;
+      this.quickAddTransaction.location = this.quickAddForm.controls["location"].value;
+      this.quickAddTransaction.description = this.quickAddForm.controls["description"].value;
+      this.quickAddTransaction.cost = parseInt(this.quickAddForm.controls["cost"].value);
+      this.quickAddTransaction.date = stringDate;
+
+      this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) => {
+        this.refreshDashboard();
+        this.quickAddForm.reset();
+      });
+    }
   }
 
 }
