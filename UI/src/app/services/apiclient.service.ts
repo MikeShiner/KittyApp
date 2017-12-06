@@ -16,19 +16,24 @@ export class ApiClientService {
 
   public getDashboardData(month: number, year: number): Observable<object> {
     // const params = new HttpParams().set('page', '1');
-    return this.http.get(this.END_POINT + "/dashboard");
+    return this.http.get(this.END_POINT + "/dashboard" + this.cacheString());
   }
 
   public getTransactionLocations(): Observable<any> {
-    return this.http.get(this.END_POINT + "/details/location");
+    return this.http.get(this.END_POINT + "/details/location" + this.cacheString());
   }
 
   public getTransactionTypes(): Observable<any> {
-    return this.http.get(this.END_POINT + "/details/type");
+    return this.http.get(this.END_POINT + "/details/type" + this.cacheString());
   }
 
   public addTransaction(newTransaction: Transaction) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post(this.END_POINT + '/transactions/add', JSON.stringify(newTransaction), {headers: headers});
+    return this.http.post(this.END_POINT + '/transactions/add' + this.cacheString(), JSON.stringify(newTransaction), {headers: headers});
+  }
+
+  private cacheString(): string {
+    let time = new Date().getTime();
+    return "?q=" + time;
   }
 }

@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label>Type</label>
                                     <mat-form-field class="material-block">
-                                        <input type="text" class="form-control border-input" placeholder="Type of transaction" matInput formControlName="type" [matAutocomplete]="autoType">
+                                        <input type="text" class="form-control border-input" matInput formControlName="type" [matAutocomplete]="autoType">
                                         <mat-autocomplete #autoType="matAutocomplete">
                                             <mat-option *ngFor="let option of types_dropdown" [value]="option">
                                                 {{ option }}
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label>Location</label>
                                     <mat-form-field class="material-block">
-                                        <input type="text" class="form-control border-input" placeholder="Pick one" matInput formControlName="location" [matAutocomplete]="auto">
+                                        <input type="text" class="form-control border-input" matInput formControlName="location" [matAutocomplete]="auto">
                                         <mat-autocomplete #auto="matAutocomplete">
                                             <mat-option *ngFor="let option of location_dropdown" [value]="option">
                                                 {{ option }}
@@ -88,7 +88,7 @@
                                 <div class="form-group">
                                     <label>Date</label>
                                     <mat-form-field class="material-block">
-                                        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="form-control border-input datepicker-align" formControlName="date">
+                                        <input matInput [matDatepicker]="picker" (click)="picker.open()" class="form-control border-input datepicker-align" formControlName="date">
                                         <mat-datepicker touchUi="true" #picker></mat-datepicker>
                                     </mat-form-field>
                                 </div>
