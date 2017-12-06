@@ -35,3 +35,6 @@
   padding: 0 !important;
   padding-bottom: 2px !important;
 }
+.main-panel {
+  overflow-x: hidden !important;
+}
