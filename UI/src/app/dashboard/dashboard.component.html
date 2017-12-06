@@ -26,8 +26,8 @@
         <!-- Quick Add  -->
         <div class="container-fluid" id="quickAdd-container">
             <div class="row">
-                <div class="col-xs-12" (click)="toggle()">
-                    <i class="ti-plus"></i> Quick Add</div>
+                <div class="col-xs-12" id="quickAddBtn" (click)="toggle()">
+                    <img src="../../assets/img/add-btn.png" width="48" height="48"> Quick Add</div>
             </div>
             <div class="row">
                 <div class="slidedown-container" [@toggle]="state">
@@ -117,7 +117,7 @@
                         <div class="col-xs-12">
                             <div class="card transaction-card">
                                 <div class="content">
-                                    <div class="row" *ngFor="let trans of dashboardData.last5Transactions">
+                                    <div class="row transaction-entry" *ngFor="let trans of dashboardData.last5Transactions">
                                         <div class="col-xs-12 col-sm-4">
                                             {{trans.type}}
                                         </div>
