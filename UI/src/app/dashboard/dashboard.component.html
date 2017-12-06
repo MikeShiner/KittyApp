@@ -68,7 +68,7 @@
 
                         <!-- Description -->
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-xs-10 col-xs-offset-1">
                                 <div class="form-group">
                                     <label>Description</label>
                                     <input type="text" class="form-control border-input" placeholder="Short Description" formControlName="description">
@@ -78,7 +78,7 @@
 
                         <!-- Date/Cost -->
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-4 col-xs-offset-1">
                                 <div class="form-group">
                                     <label>Cost</label>
                                     <input type="text" class="form-control border-input" placeholder="£" formControlName="cost">
@@ -89,7 +89,6 @@
                                     <label>Date</label>
                                     <mat-form-field class="material-block">
                                         <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="form-control border-input datepicker-align" formControlName="date">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker touchUi="true" #picker></mat-datepicker>
                                     </mat-form-field>
                                 </div>

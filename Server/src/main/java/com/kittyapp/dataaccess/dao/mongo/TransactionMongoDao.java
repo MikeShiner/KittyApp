@@ -61,12 +61,12 @@ public class TransactionMongoDao implements TransactionDao
 
         ops.add(match(getFilterCriteria(filter)));
 
+        ops.add(Aggregation.sort(Sort.Direction.DESC, Transaction.FIELD_TIMESTAMP));
         if (filter.getQty() != 0)
         {
             ops.add(limit(filter.getQty()));
         }
 
-        ops.add(Aggregation.sort(Sort.Direction.DESC, Transaction.FIELD_TIMESTAMP));
         TypedAggregation<?> aggr = Aggregation.newAggregation(Transaction.class, ops);
 
         return this.mongoOps.aggregate(
