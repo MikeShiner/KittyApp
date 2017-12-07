@@ -1,4 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+/* Override paper styles */
+.main-panel > .content {
+
+}
+
+/* Custom CSS */
 #total-remaining {
   font-size: 4em;
   text-align: center;
@@ -45,9 +50,26 @@
 .slidedown-container > form {
   background-color: #fff;
   border-top: 2px solid #d2d0cb;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #d2d0cb;
   padding: 20px 0;
 }
 #quickAddBtn {
   padding: 10px;
+}
+
+/* Month Controls */
+#month-control {
+  font-size: 1.5em;
+  padding-bottom: 10px;
+}
+#next-month-btn {
+  text-align: right;
+  padding: 5px 30px;
+}
+#month-display {
+  text-align: center;
+  padding: 5px 30px;
+}
+#prev-month-btn {
+  padding: 5px 30px;
 }

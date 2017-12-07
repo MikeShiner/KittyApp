@@ -31,10 +31,14 @@ export class DashboardComponent implements OnInit {
   public last5Transactions: Array<Object>;
   private state: string = "closed";
 
+  private currentViewingDate: Date;
+  private currentViewingDateString: string;
+
   private dashboardData: DashboardData = new DashboardData();
   private location_dropdown: Array<string>;
   private types_dropdown: Array<string>;
 
+  private getMonthText: Array<string> = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 
 
@@ -46,6 +50,10 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private apiClientService: ApiClientService, private fb: FormBuilder) {
+    this.currentViewingDate = new Date();
+    this.updateDateString();
+
+
     this.quickAddForm = this.fb.group({
       'type': new FormControl('', Validators.required),
       'location': new FormControl('', Validators.required),
@@ -97,6 +105,11 @@ export class DashboardComponent implements OnInit {
         this.quickAddForm.reset();
       });
     }
+  }
+
+  private updateDateString() {
+    this.currentViewingDateString = this.getMonthText[this.currentViewingDate.getMonth()] + "   '" 
+    + this.currentViewingDate.getFullYear().toString().substring(2,4);
   }
 
 }
