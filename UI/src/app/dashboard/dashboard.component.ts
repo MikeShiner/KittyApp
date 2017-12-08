@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   refreshDashboard() {
     this.updateDateString();
-    let month = this.currentViewingDate.getMonth();
+    let month = this.currentViewingDate.getMonth() + 1;
     let year = this.currentViewingDate.getFullYear();
     this.apiClientService.getDashboardData(month, year).subscribe((data) => {
       this.dashboardData.fundsLeft = data["fundsLeft"];
