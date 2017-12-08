@@ -51,8 +51,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(private apiClientService: ApiClientService, private fb: FormBuilder) {
     this.currentViewingDate = new Date();
-    this.updateDateString();
-
 
     this.quickAddForm = this.fb.group({
       'type': new FormControl('', Validators.required),
@@ -68,7 +66,10 @@ export class DashboardComponent implements OnInit {
   }
 
   refreshDashboard() {
-    this.apiClientService.getDashboardData(1, 1).subscribe((data) => {
+    this.updateDateString();
+    let month = this.currentViewingDate.getMonth();
+    let year = this.currentViewingDate.getFullYear();
+    this.apiClientService.getDashboardData(month, year).subscribe((data) => {
       this.dashboardData.fundsLeft = data["fundsLeft"];
       this.dashboardData.last5Transactions = data["lastTransactions_5"];
     });
@@ -110,6 +111,15 @@ export class DashboardComponent implements OnInit {
   private updateDateString() {
     this.currentViewingDateString = this.getMonthText[this.currentViewingDate.getMonth()] + "   '" 
     + this.currentViewingDate.getFullYear().toString().substring(2,4);
+  }
+
+  private moveMonth(direction: string): void {
+    if (direction == "next") {
+      this.currentViewingDate.setMonth(this.currentViewingDate.getMonth() + 1);
+    } else {
+      this.currentViewingDate.setMonth(this.currentViewingDate.getMonth() - 1);
+    }
+    this.refreshDashboard();
   }
 
 }
