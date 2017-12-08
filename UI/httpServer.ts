@@ -19,7 +19,7 @@ class httpServer {
     }
 
     public serverMiddlewareConfig(): void {
-        this.app.use(express.static(path.join(__dirname, "../dist")));
+        this.app.use(express.static(path.join(__dirname, "dist")));
     }
 
     public serverRoutes(): void {
@@ -27,9 +27,9 @@ class httpServer {
 
         // Home
         router.get('/**', (req: Request, res: Response, next: NextFunction) => {
-            res.sendFile('dist/index.html', { root: __dirname });
+            res.sendFile("dist/index.html", { root: __dirname });
         });
-        this.app.use("/", router);
+        this.app.use(router);
     }
 
     public static bootstrap(port: number): httpServer {

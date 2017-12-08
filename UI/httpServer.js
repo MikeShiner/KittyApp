@@ -13,15 +13,15 @@ var httpServer = (function () {
         });
     }
     httpServer.prototype.serverMiddlewareConfig = function () {
-        this.app.use(express.static(path.join(__dirname, "../dist")));
+        this.app.use(express.static(path.join(__dirname, "dist")));
     };
     httpServer.prototype.serverRoutes = function () {
         var router = express.Router();
         // Home
         router.get('/**', function (req, res, next) {
-            res.sendFile('dist/index.html', { root: __dirname });
+            res.sendFile("dist/index.html", { root: __dirname });
         });
-        this.app.use("/", router);
+        this.app.use(router);
     };
     httpServer.bootstrap = function (port) {
         return new httpServer(port);
