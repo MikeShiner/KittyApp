@@ -54,12 +54,14 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { TransactionsComponent }   from './transactions/transactions.component';
 import { ApiClientService } from './services/apiclient.service';
+import { MonthViewControlComponent } from './shared/month-view-control/month-view-control.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    MonthViewControlComponent
   ],
   imports: [
     BrowserModule,

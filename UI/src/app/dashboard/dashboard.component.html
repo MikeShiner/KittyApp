@@ -1,11 +1,5 @@
 <!-- Month Controller  -->
-<div class="container-fluid">
-    <div class="row" id="month-control">
-        <div class="col-xs-4" id="prev-month-btn" (click)="moveMonth('prev')"><i class="ti-arrow-circle-left"></i></div>
-        <div class="col-xs-4" id="month-display">{{currentViewingDateString}}</div>
-        <div class="col-xs-4" id="next-month-btn" (click)="moveMonth('next')"><i class="ti-arrow-circle-right"></i></div>
-    </div>
-</div>
+<app-month-view-control (onViewChange)="monthViewChange($event)"></app-month-view-control>
 
 <div class="container-fluid">
     <div class="row">

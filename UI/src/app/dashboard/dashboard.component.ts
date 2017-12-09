@@ -30,27 +30,19 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
   public last5Transactions: Array<Object>;
   private state: string = "closed";
+  private currentViewingDate = new Date();
 
-  private currentViewingDate: Date;
-  private currentViewingDateString: string;
 
   private dashboardData: DashboardData = new DashboardData();
   private location_dropdown: Array<string>;
   private types_dropdown: Array<string>;
 
-  private getMonthText: Array<string> = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-
-
-
   // Quick Add form controls
   private quickAddTransaction: Transaction = new Transaction();
-  quickAddForm: FormGroup;
-  formErrors: Array<String>;
-
-
+  private quickAddForm: FormGroup;
+  private formErrors: Array<String>;
 
   constructor(private apiClientService: ApiClientService, private fb: FormBuilder) {
-    this.currentViewingDate = new Date();
 
     this.quickAddForm = this.fb.group({
       'type': new FormControl('', Validators.required),
@@ -62,13 +54,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refreshDashboard();
+    this.refreshDashboard(this.currentViewingDate);
   }
 
-  refreshDashboard() {
-    this.updateDateString();
+  refreshDashboard(date: Date) {
     let month = this.currentViewingDate.getMonth() + 1;
     let year = this.currentViewingDate.getFullYear();
+
     this.apiClientService.getDashboardData(month, year).subscribe((data) => {
       this.dashboardData.fundsLeft = data["fundsLeft"];
       this.dashboardData.last5Transactions = data["lastTransactions_5"];
@@ -84,6 +76,11 @@ export class DashboardComponent implements OnInit {
 
   toggle() {
     this.state = (this.state == "open") ? "closed" : "open";
+  }
+
+  monthViewChange(date: Date) {
+    this.currentViewingDate = date;
+    this.refreshDashboard(date);
   }
 
   submitForm() {
@@ -102,23 +99,9 @@ export class DashboardComponent implements OnInit {
       this.quickAddTransaction.cost = parseInt(this.quickAddForm.controls["cost"].value);
 
       this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) => {
-        this.refreshDashboard();
+        this.refreshDashboard(this.currentViewingDate);
         this.quickAddForm.reset();
       });
     }
-  }
-
-  private updateDateString() {
-    this.currentViewingDateString = this.getMonthText[this.currentViewingDate.getMonth()] + "   '" 
-    + this.currentViewingDate.getFullYear().toString().substring(2,4);
-  }
-
-  private moveMonth(direction: string): void {
-    if (direction == "next") {
-      this.currentViewingDate.setMonth(this.currentViewingDate.getMonth() + 1);
-    } else {
-      this.currentViewingDate.setMonth(this.currentViewingDate.getMonth() - 1);
-    }
-    this.refreshDashboard();
   }
 }
