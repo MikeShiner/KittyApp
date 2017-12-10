@@ -37,8 +37,13 @@ export class TransactionsComponent implements OnInit {
     }
 
     deleteTransaction(id: string) {
-        this.apiClientService.deleteTransaction(id).subscribe((data) => {
-
+        this.apiClientService.deleteTransaction(id).subscribe(
+            (data) => {
+                this.refreshTransactionList(this.currentViewingDate);
+            }, 
+            (error) => {
+                this.refreshTransactionList(this.currentViewingDate);
+            console.log("Unable to delete transaction", error.error.message);
         });
     }
 }

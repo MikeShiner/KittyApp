@@ -47,7 +47,7 @@ export class ApiClientService {
   }
 
   public deleteTransaction(id: string) {
-    return this.http.get(this.END_POINT + "/transactions/" + id + "/delete");
+    return this.http.delete(this.END_POINT + "/transactions/" + id);
   }
 
   private cacheString(): string {
