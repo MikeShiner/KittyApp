@@ -1,6 +1,5 @@
 <!-- Month Controller  -->
 <app-month-view-control (onViewChange)="monthViewChange($event)"></app-month-view-control>
-
 <!-- Dashboard -->
 <div class="container-fluid">
     <div class="row">
@@ -9,7 +8,10 @@
                 <div class="content">
                     <div class="row">
                         <div class="col-xs-12">
-                            <p id="total-remaining">£{{dashboardData.fundsLeft}}</p>
+                                <p>
+                                    <div id="total-remaining" counto [step]="45" [countTo]="dashboardData.fundsLeft" [countFrom]="0" [duration]="2" (countoChange)="counto = $event">
+                                        {{counto | currency:'GBP':"symbol":'1.2-2'}}
+                                    </div>                                                       
                         </div>
                         <div class="col-xs-12">
                             <p class="remainingText">Remaining</p>

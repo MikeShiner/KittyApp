@@ -13,6 +13,7 @@ import {
   MatNativeDateModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CountoModule }  from 'angular2-counto';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
@@ -42,6 +43,8 @@ import { MonthViewControlComponent } from './shared/month-view-control/month-vie
     FooterModule,
     FormsModule, 
     ReactiveFormsModule,
+
+    CountoModule,
 
     CdkTableModule,
     MatAutocompleteModule,
