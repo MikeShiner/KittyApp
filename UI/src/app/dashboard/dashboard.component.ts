@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
       this.quickAddTransaction.type = this.quickAddForm.controls["type"].value;
       this.quickAddTransaction.location = this.quickAddForm.controls["location"].value;
       this.quickAddTransaction.description = this.quickAddForm.controls["description"].value;
-      this.quickAddTransaction.cost = parseInt(this.quickAddForm.controls["cost"].value);
+      this.quickAddTransaction.cost = parseFloat(this.quickAddForm.controls["cost"].value);
 
       this.apiClientService.addTransaction(this.quickAddTransaction).subscribe((data) => {
         this.refreshDashboard(this.currentViewingDate);
