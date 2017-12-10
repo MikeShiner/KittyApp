@@ -46,6 +46,10 @@ export class ApiClientService {
     return this.http.get(this.END_POINT + "/transactions", { params: params });
   }
 
+  public deleteTransaction(id: string) {
+    return this.http.get(this.END_POINT + "/transactions/" + id + "/delete");
+  }
+
   private cacheString(): string {
     return new Date().getTime().toString();
   }

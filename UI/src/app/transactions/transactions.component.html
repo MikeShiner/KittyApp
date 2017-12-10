@@ -10,8 +10,8 @@
             <div class="col-xs-6 col-sm-6">
                 <i class="ti-location-arrow"></i> {{ transaction.location }}
             </div>
-            <div class="col-xs-1 col-sm-1">
-                <div class="transaction-options">
+            <div class="col-xs-1 col-sm-1 transaction-options">
+                <div class="">
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="ti-settings"></i>
@@ -21,7 +21,7 @@
                                 <a >Edit</a>
                             </li>
                             <li>
-                                <a (click)="testMethod(transaction.transactionId)">Delete</a>
+                                <a (click)="deleteTransaction(transaction.transactionId)">Delete</a>
                             </li>
                         </ul>
                     </div>

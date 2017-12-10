@@ -36,7 +36,9 @@ export class TransactionsComponent implements OnInit {
         this.refreshTransactionList(date);
     }
 
-    testMethod(id: string) {
-        console.log(id);
+    deleteTransaction(id: string) {
+        this.apiClientService.deleteTransaction(id).subscribe((data) => {
+
+        });
     }
 }
