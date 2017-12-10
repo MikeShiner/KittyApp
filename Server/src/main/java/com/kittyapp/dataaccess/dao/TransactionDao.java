@@ -14,5 +14,6 @@ public interface TransactionDao
     List<Transaction> getAllTransaction();
     
     double getRunningTotal(TransactionFilter filter);
-    
+
+    void deleteTransaction(String transactionId);
 }
