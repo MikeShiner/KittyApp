@@ -1,2 +1,49 @@
 <!-- Month Controller  -->
 <app-month-view-control (onViewChange)="monthViewChange($event)"></app-month-view-control>
+
+<div class="card transaction-card" *ngFor="let transaction of transactionList">
+    <div class="content">
+        <div class="row">
+            <div class="col-xs-5 col-sm-5">
+                {{ transaction.type }}
+            </div>
+            <div class="col-xs-6 col-sm-6">
+                <i class="ti-location-arrow"></i> {{ transaction.location }}
+            </div>
+            <div class="col-xs-1 col-sm-1">
+                <div class="transaction-options">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="ti-settings"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a >Edit</a>
+                            </li>
+                            <li>
+                                <a (click)="testMethod(transaction.transactionId)">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12">
+                <i class="ti-pencil-alt"></i> {{ transaction.description }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <i class="ti-calendar"></i> {{ transaction.timestamp }}
+            </div>
+            <div class="col-xs-6 transaction-cost"> £{{ transaction.cost }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="notransactions" *ngIf="transactionList.length == 0">
+    <h2>No transactions recorded.</h2>
+</div>

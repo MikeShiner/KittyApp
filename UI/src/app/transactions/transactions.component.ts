@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiClientService } from '../services/apiclient.service';
+import { Transaction } from 'app/class/transaction';
 
 @Component({
     selector: 'transactions-cmp',
@@ -10,6 +11,7 @@ import { ApiClientService } from '../services/apiclient.service';
 
 export class TransactionsComponent implements OnInit {
     private currentViewingDate: Date;
+    private transactionList: Array<object> = [];
 
     constructor(private apiClientService: ApiClientService) {
         this.currentViewingDate = new Date();
@@ -23,11 +25,18 @@ export class TransactionsComponent implements OnInit {
     refreshTransactionList(date: Date) {
         let month = this.currentViewingDate.getMonth() + 1;
         let year = this.currentViewingDate.getFullYear();
-        console.log("Fetching transactions for date.. " + date);
+
+        this.apiClientService.getTransactions(month, year).subscribe((data) => {
+            this.transactionList = data;
+        });
     }
 
     monthViewChange(date: Date) {
         this.currentViewingDate = date;
         this.refreshTransactionList(date);
-      }
+    }
+
+    testMethod(id: string) {
+        console.log(id);
+    }
 }

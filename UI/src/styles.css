@@ -74,3 +74,22 @@
 #prev-month-btn {
   padding: 5px 30px;
 }
+
+/* Transactions */
+.transaction-card {
+  z-index: inherit;
+  margin-bottom: 5px;
+}
+.transaction-options {
+  padding: 0;
+  text-align: right;
+}
+.transaction-options .dropdown-menu {
+  left: -120px;
+}
+.transaction-cost {
+  text-align: right;
+}
+.notransactions {
+  text-align: center;
+}

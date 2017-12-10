@@ -39,6 +39,13 @@ export class ApiClientService {
     return this.http.post(this.END_POINT + '/transactions/add', JSON.stringify(newTransaction), {headers: headers, params: params});
   }
 
+  public getTransactions(month: number, year: number): Observable<any> {
+    const params = new HttpParams().set('month', month.toString())
+                                   .set('year', year.toString())
+                                   .set('q', this.cacheString());
+    return this.http.get(this.END_POINT + "/transactions", { params: params });
+  }
+
   private cacheString(): string {
     return new Date().getTime().toString();
   }

@@ -1,9 +1,9 @@
 <!-- Month Controller  -->
 <app-month-view-control (onViewChange)="monthViewChange($event)"></app-month-view-control>
 
+<!-- Dashboard -->
 <div class="container-fluid">
     <div class="row">
-        <!-- Dashboard -->
         <div class="col-xs-12">
             <div class="card">
                 <div class="content">
@@ -133,9 +133,12 @@
                                         <div class="col-xs-12 col-sm-4">
                                             <i class="ti-pencil-alt"></i> {{trans.description}}
                                         </div>
-                                        <div class="col-xs-12 col-sm-6">
+                                        <div class="col-xs-12 col-sm-6 transaction-cost">
                                             £{{trans.cost.toFixed(2)}}
                                         </div>
+                                    </div>
+                                    <div class="notransactions" *ngIf="dashboardData.last5Transactions.length == 0">
+                                        <h3>No transactions recorded.</h3>
                                     </div>
                                 </div>
                             </div>

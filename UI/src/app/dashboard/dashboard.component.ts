@@ -28,7 +28,6 @@ declare var $: any;
 })
 
 export class DashboardComponent implements OnInit {
-  public last5Transactions: Array<Object>;
   private state: string = "closed";
   private currentViewingDate = new Date();
 
