@@ -70,5 +70,24 @@ public class TransactionController
 
         return new ResponseEntity<>(transactionId, HttpStatus.OK);
     }
+    
+    @RequestMapping(
+        path = "/{transactionId}", 
+        method = RequestMethod.PUT, 
+        consumes = MediaType.APPLICATION_JSON_VALUE, 
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateTransaction(
+        @PathVariable("transactionId")String transactionId,
+        @RequestBody @Valid SystemMessageContent newTransContent) throws Exception
+    {
+        LOGGER.info("Request to update existing transaciton received. {}", newTransContent.toString());
+        Transaction updatedTransaction = new Transaction(newTransContent.getDescription(),
+            newTransContent.getType(), newTransContent.getLocation(), newTransContent.getCost(),
+            newTransContent.getTimestamp(), ZonedDateTime.now(this.clock));
+
+        transactionDao.updateTransaction(transactionId, updatedTransaction);
+
+        return new ResponseEntity<>(updatedTransaction, HttpStatus.OK);
+    }
 
 }

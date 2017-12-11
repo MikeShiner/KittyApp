@@ -16,4 +16,6 @@ public interface TransactionDao
     double getRunningTotal(TransactionFilter filter);
 
     void deleteTransaction(String transactionId);
+    
+    Transaction updateTransaction(String transactionId, Transaction updateTrans);
 }

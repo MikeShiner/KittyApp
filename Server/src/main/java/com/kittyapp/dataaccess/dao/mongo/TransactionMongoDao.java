@@ -8,7 +8,6 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 import com.kittyapp.dataaccess.dao.TransactionDao;
 import com.kittyapp.dataaccess.entities.Transaction;
@@ -139,6 +139,26 @@ public class TransactionMongoDao implements TransactionDao
         // mLab has restrictions using and operators for empty arrays. Since we only have one criteria,
         // we have to return the criteria directly.
         return dateCriteria;
+    }
+
+    /**
+     * @param updateTrans
+     * @return
+     */
+    @Override
+    public Transaction updateTransaction(String transactionId, Transaction updateTrans)
+    {
+        Query q = new Query(Criteria.where("_id").is(new ObjectId(transactionId)));
+        Update u = new Update()
+            .set("description", updateTrans.getDescription())
+            .set("type", updateTrans.getType())
+            .set("location", updateTrans.getLocation())
+            .set("cost", updateTrans.getCost())
+            .set("timestamp", updateTrans.getTimestamp())
+            .set("created", updateTrans.getCreatedTimestamp());
+        
+        mongoOps.upsert(q, u, Transaction.class, Transaction.COLLECTION_NAME);
+        return updateTrans;
     }
 
 }
